@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<project name="ParagrafLexInterest" basedir="../" default="usage">
+	<property file="./conf/common-build.properties"/>
+	<property file="./conf/build.properties"/>
+
+    <path id="master-classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+    <path id="ant-classpath">
+    	<path location="${ext.lib.dir}/ant.jar"/>
+    	<path location="${ext.lib.dir}/jpp.jar"/>
+    </path>
+
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="clean     		--> Cleans build directory"/>
+        <echo message="copy      		--> Copy resources and class files for deploy"/>
+    	<echo message="build    		--> Build the application in work folder"/>
+    	<echo message="makeJAR  		--> Make Java Archive file in build folder (not obfuscated) Debug version "/>
+        <echo message="build    		--> Make obfucsated Java Archive file in build folder Release version"/>
+        <echo message=""/>
+    </target>
+
+    <target name="clean" description="This task cleans the project">
+    	<!--<delete dir="${build.dir}"></delete>-->
+    	<!--<delete dir="${build.dir}/log"></delete>-->
+    	<!--<delete dir="${build.dir}/lib"></delete>-->
+    	<!--<delete dir="${build.dir}/conf"></delete>-->
+    	<!--<delete dir="${build.dir}/work"></delete>-->
+    	<delete file="${build.dir}/ParagrafLexInterest.jar"></delete>
+    	<delete file="${build.dir}/ParagrafLexInterestDebug.jar"></delete>
+    	<delete dir="${work.dir}"></delete>
+    </target>
+
+    <target name="copy"  depends="clean" description="Copy libs and resource files">
+
+  </target>
+
+    <target name="build" description="Compile main source tree java files">
+        <mkdir dir="${work.dir}"/>
+        <javac destdir="${work.dir}"
+        	   encoding="utf8"
+        	   debug="true"
+               deprecation="false"
+        	   optimize="false"
+        	   failonerror="true">
+        	<!--src path="${src.common}/gui"/-->
+            <src path="${src.dir}"/>
+            <classpath refid="master-classpath"/>
+        	<compilerarg value="-Xlint:unchecked"/>
+        </javac>
+    </target>
+
+    <target name="rebuild" depends="copy" description="Compile main source tree java files">
+        <mkdir dir="${work.dir}"/>
+        <javac destdir="${work.dir}"
+        	   encoding="utf8"
+        	   debug="true"
+               deprecation="false"
+        	   optimize="false"
+        	   failonerror="true">
+        	<!--src path="${src.common}/gui"/-->
+            <src path="${src.dir}"/>
+            <classpath refid="master-classpath"/>
+        	<compilerarg value="-Xlint:unchecked"/>
+        </javac>
+    </target>
+
+    <target name="makeJAR" depends="rebuild" description="Deploy application as a WAR file">
+        <mkdir dir="${build.dir}"/>
+        <jar destfile="${build.dir}\ParagrafLexInterestDebug.jar"
+             manifestencoding="utf8"
+    	     manifest="${metainf.dir}\MANIFEST.MF">
+            <fileset dir="${work.dir}">
+                <include name="**\*.*"/>
+        		<!--<exclude name="com/zesium/paragraph/browser/test/*.*"/>-->
+            </fileset>
+        </jar>
+        <mkdir dir="${build.dir}\lib"/>
+
+		<copy todir="${build.dir}\lib" preservelastmodified="true">
+			<fileset dir="${lib.dir}">
+				<include name="itextpdf-5.3.5.jar"/>
+				<include name="miglayout-4.0.jar"/>
+	   		</fileset>
+		</copy>
+
+		<mkdir dir="${build.dir}\conf"/>
+	    <copy todir="${build.dir}\conf" preservelastmodified="true">
+	   		<fileset dir="${conf.dir}">
+	       		<include name="interest.cfg"/>
+	   			<include name="interest.xml"/>
+	   			<include name="printInterest.cfg"/>
+	   			<include name="fixedInterest.dat"/>
+	   			<exclude name="parameters.properties"/>
+	   			<exclude name="build.properties"/>
+	    	</fileset>
+	    </copy>
+
+        <mkdir dir="${build.dir}\conf\htmlDocs"/>
+	</target>
+
+    <target name="runRelease" depends="obfuscate" description="Deploy application as a JAR file">
+    	<java dir="${build.dir}" jar="${build.dir}/ParagrafLexInterest.jar" fork="true" newenvironment="false" maxmemory="128M"/>
+    </target>
+
+    <target name="runDebug" depends="makeJAR" description="Deploy application as a JAR file">
+    	<java dir="${build.dir}" jar="${build.dir}/ParagrafLexInterestDebug.jar" fork="true" newenvironment="false" maxmemory="128M"/>
+    </target>
+
+	<target name="obfuscate" depends="clean, makeJAR">
+	  <taskdef resource="proguard/ant/task.properties"
+	           classpath="${ext.lib.dir}/proguard.jar" />
+
+		  <proguard applymapping="./conf/beans.obfuscation"
+		  	        printmapping="${build.dir}/outInterest.map"
+		  			shrink="false"
+		            optimize="true"
+					configuration="./conf/proguard.properties"
+  	                repackageclasses="interest"
+                    obfuscationdictionary="./conf/proguard.dictionary">
+
+	    <!-- Specify the input jars, output jars, and library jars. -->
+
+	    <injar  file="${build.dir}/ParagrafLexInterestDebug.jar" />
+	    <outjar file="${build.dir}/ParagrafLexInterest.jar" />
+
+	  	<libraryjar file="${java.home}/lib/rt.jar" />
+		<libraryjar file="${java.home}/lib/jce.jar" />
+
+	    <keepclasseswithmembers access="public">
+	      <method access="public static"
+	              type="void"
+	              name="main"
+	              parameters="java.lang.String[]" />
+	    </keepclasseswithmembers>
+	  </proguard>
+	<delete file="${build.dir}/ParagrafLexInterestDebug.jar"></delete>
+	</target>
+
+</project>
+

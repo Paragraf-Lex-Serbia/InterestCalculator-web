@@ -1,0 +1,2 @@
+Main-Class: com.zesium.paragraph.interest.MainFrame
+Class-Path: lib/iText.jar lib/miglayout-3.7-swing.jar
