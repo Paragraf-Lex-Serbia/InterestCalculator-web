@@ -226,9 +226,9 @@ public class RateManager {
 			default: return left.getRate(interestType).equals(right.getRate(interestType));
 			}
 		}
-		
+
 		public RateBean getRates(Date date, int interestType)
-		{			
+		{
 			switch (interestType)
 			{
 			default:
@@ -242,12 +242,12 @@ public class RateManager {
 							rate = it.next();
 							if (rate.getRate(interestType)==null) continue;
 							//sum up the rates with same value to form a larger block
-							if (result ==null && date.before(rate.getFrom())) 
+							if (result ==null && date.before(rate.getFrom()))
 								{
 								result=previousRate;
 								if (result==null) return null;
 								}
-							if (result!=null) 
+							if (result!=null)
 							{
 	//							if(date.before(rate.getFrom()) && _equalRates(result, rate, interestType)) {
 	//								if (interestType==AccountBean.LAW_INTEREST_TYPE )  {
@@ -258,13 +258,16 @@ public class RateManager {
 	//									result.setLawRate(result.getLawRate()+(rate.getLawRate()*dayDifference/maxDays));
 	//								}
 	//							    if ( interestType==AccountBean.LAW_INTEREST_TYPE_EUR) result.setLawRateEuro(result.getLawRateEuro()+rate.getLawRateEuro());
-								if (result.getRate(interestType).equals(rate.getRate(interestType)) && 
+								if (result.getRate(interestType).equals(rate.getRate(interestType)) &&
 									result.getRateMethod(interestType).equals(rate.getRateMethod(interestType)) &&
 									result.getTaxCalculationType().equals(rate.getTaxCalculationType()) ) result.setTo(rate.getTo());
 								else return result;
 							}
 							previousRate = rate.clone();
 						}
+					// Workaround for last interval
+					if (result==null && previousRate!=null) return previousRate;
+					
 					if (result!=null && (!date.before(result.getFrom() ) && date.before(result.getTo()))) return result;
 					return null;
 					}

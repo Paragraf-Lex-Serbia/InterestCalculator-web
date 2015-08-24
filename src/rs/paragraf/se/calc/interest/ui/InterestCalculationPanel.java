@@ -378,6 +378,7 @@ public class InterestCalculationPanel extends JPanel {
 					BorderFactory.createBevelBorder(5)));
 
 			lawInterestType.setSelected(true);
+			enablePropConfMethod(false);
 			mixedMethod.setSelected(true);
 			lawInterestType.setText(
 					MainFrame.properties.getProperty("law.interest.type"));
@@ -407,6 +408,7 @@ public class InterestCalculationPanel extends JPanel {
 			lawInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(true);
+					enablePropConfMethod(false);
 					enableCalculationType(true);
 					mixedMethod.setSelected(true);
 				}
@@ -415,6 +417,7 @@ public class InterestCalculationPanel extends JPanel {
 			lawInterestTypeEur.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);
 					proporcionalMethod.setSelected(true);
 				}
@@ -422,12 +425,14 @@ public class InterestCalculationPanel extends JPanel {
 			priceGrowthInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);
 				}
 			});
 			taxInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableCalculationType(false);
+					enablePropConfMethod(true);
 					enableMixMethod(true);
 					mixedMethod.setSelected(true);				
 				}
@@ -435,42 +440,49 @@ public class InterestCalculationPanel extends JPanel {
 			fixedAnualContractInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);				
 				}
 			});
 			fixedMonthleyContractInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);				
 				}
 			});
 			fixedDailyContractInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);				
 				}
 			});
 			freeContractInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);	
+					enablePropConfMethod(true);
 					enableCalculationType(true);			
 				}
 			});
 			excontAnualInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);				
 				}
 			});
 			referentInterestType.addActionListener(new ActionListener() {			
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);	
+					enablePropConfMethod(true);
 					enableCalculationType(true);			
 				}
 			});
 			ecbInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
+					enablePropConfMethod(true);
 					enableCalculationType(true);
 					popupMessage_action();
 				}
@@ -689,6 +701,12 @@ public class InterestCalculationPanel extends JPanel {
 		protected void enableMixMethod(boolean enabled) {
 			mixedMethod.setEnabled(enabled);
 			if (mixedMethod.isSelected()) proporcionalMethod.setSelected(true);
+		}
+		
+		protected void enablePropConfMethod(boolean enabled) {
+			proporcionalMethod.setEnabled(enabled);
+			conformMethod.setEnabled(enabled);
+			if (!enabled) mixedMethod.setSelected(true);
 		}
 		
 		protected void enableCalculationType(boolean enabled) {

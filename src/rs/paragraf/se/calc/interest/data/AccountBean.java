@@ -344,7 +344,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 //		}
 //		return result;
 //	}
-	
+
 	private AccountResultBean _calculateEndDate(Date startDate, /*double ammount,*/ AccountResultBean previous)
 	{
 
@@ -356,7 +356,8 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 		result.setFrom(cal.getTime());
 		result.setTo(getTo()); // default setting to final end period
 		RateBean rate = RateManager.getInstance().getRates(cal.getTime(), this.getInterestType());
-//		System.out.println("Rate ::" + rate.getFrom() +"-" + rate.getTo());
+		System.out.println("AccountBean._calculateEndDate() " + (rate==null));
+		System.out.println("Rate ::" + rate.getFrom() +"-" + rate.getTo());
 		Double interest = null;
 		if (rate!=null) interest = rate.getRate(this.getInterestType());
 		else if (this.getInterestType()==FIXED_ANUAL_CONTRACT_INTEREST_TYPE) interest = RateManager.getInstance().getFixedAnualContractInterest();
@@ -393,32 +394,32 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 					totalInterest = Math.round(factor * totalInterest/rate.getDenomination())/factor;
 					totalChange = Math.round(factor * totalChange/rate.getDenomination())/factor;
 					totalDebt = Math.round(factor * totalDebt/rate.getDenomination())/factor;
-					result.setDocument(MainFrame.properties.getProperty("denomination.table.label"));	
+					result.setDocument(MainFrame.properties.getProperty("denomination.table.label"));
 					}
 				}
 			}
 
 		if (getMethodType()!=MIXED_METHOD_TYPE) result.setMethod(getMethodType());
 		else if (rate != null) result.setMethod(rate.getRateMethod(this.getInterestType()));
-						
+
 		if (result.getMethod()==CONFORM_METHOD_TYPE) tempBasis=previous.getDebt();
-		else if (previous.getMethod()==CONFORM_METHOD_TYPE)
+		else if (this.getInterestType()==TAX_INTEREST_TYPE && result.getMethod()==PROPORCIONAL_METHOD_TYPE && previous.getMethod()==CONFORM_METHOD_TYPE)
 		{ // START SPECIAL CASE SCENARIO
 			//IF there is a change in method type conf->prop then special basis should apply
 			// basis should be recalcuated as total - interest
 			tempBasis = previous.getDebt()-totalInterest;
-			
+
 		}
 //		else tempBasis=getStartAmount();
-		
+
 		result.setAmount(tempBasis);
 
 		// BUDZ
-		if (rate!=null && this.getInterestType()==LAW_INTEREST_TYPE && rate.getLawRate()!=null) 
-			result.setInterestRate(rate.getLawRate());		
-		
+		if (rate!=null && this.getInterestType()==LAW_INTEREST_TYPE && rate.getLawRate()!=null)
+			result.setInterestRate(rate.getLawRate());
+
 		// BUDZ II
-		if (rate!=null && this.getInterestType()==LAW_INTEREST_TYPE_EUR && rate.getLawRateEuroPrint()!=null) 
+		if (rate!=null && this.getInterestType()==LAW_INTEREST_TYPE_EUR && rate.getLawRateEuroPrint()!=null)
 			result.setInterestRate(rate.getLawRateEuroPrint());
 
 		//		System.out.println("Rate :: " + result.getInterestRate());
@@ -466,7 +467,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 										if  (rate.getTaxCalculationType()==1) calcType = CALCULATION_TYPE.INTEREST_FIRST_CALCULATION_TYPE;
 										else calcType = CALCULATION_TYPE.AMMOUNT_FIRST_CALCULATION_TYPE;
 									}
-									
+
 									if ( calcType==CALCULATION_TYPE.INTEREST_FIRST_CALCULATION_TYPE)
 									  {
 										if (Math.abs(change.getAmount())>(this.totalDebt-result.getAmount()))
@@ -522,7 +523,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 				//Monthly
 				case PRICE_GROWTH_INTEREST_TYPE:
 //				case EXCONT_MONTHLEY_INTEREST_TYPE:
-						if (rate==null) 
+						if (rate==null)
 							{
 							MainFrame.showMessage(MainFrame.properties.getProperty("calculation.error.message"), JOptionPane.WARNING_MESSAGE);
 							return null;
@@ -536,7 +537,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 				case TAX_INTEREST_TYPE:
 				case EXCONT_ANUAL_INTEREST_TYPE:
 				case REFERENT_INTEREST_TYPE:
-					if (rate==null) 
+					if (rate==null)
 					{
 					MainFrame.showMessage(MainFrame.properties.getProperty("calculation.error.message"), JOptionPane.WARNING_MESSAGE);
 					return null;
@@ -557,7 +558,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 
 		double k = interest/100* dayDifference/maxDays;
 		System.out.println("ResultRate " + interestType + "  Day difference " + dayDifference + " ##  MaxDays " + maxDays + " ## Basis " + result.getAmount() +" ## k " +k );
-//		if (methodType==CONFORM_METHOD_TYPE) 
+//		if (methodType==CONFORM_METHOD_TYPE)
 		if (result.getMethod()==CONFORM_METHOD_TYPE)
 			{
 			k=Math.pow((1+interest/100),(double)dayDifference/maxDays)-1;
@@ -575,7 +576,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 
 		if (result.getInterest()==0) result.setDebt(previous.getDebt() + result.getChange());
 		else result.setDebt(AccountBean.roundToDecimals(previous.getDebt() + result.getChange() + result.getInterest(),2));
-		
+
 		if (result.getMethod()==CONFORM_METHOD_TYPE) tempBasis=result.getDebt();
 
 		return result;
@@ -642,7 +643,7 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 		if (getMethodType()!= account.getMethodType()) return new Integer(getMethodType()).compareTo(new Integer(account.getMethodType())) ;
 		if (getInterestType()!= account.getInterestType()) return new Integer(getInterestType()).compareTo(new Integer(account.getInterestType())) ;
 		if (getTo()!= null) {if (!getTo().equals(account.getTo())) return getTo().compareTo(account.getTo());}
-		else if (account.getTo()!=null) return 1;		
+		else if (account.getTo()!=null) return 1;
 		if (getStartAmount()!=account.getStartAmount()) return  new Double(getStartAmount()).compareTo(new Double(account.getStartAmount())) ;
 		if (getDocument().equals(account.getDocument())) return getDocument().compareTo(account.getDocument());
 		if (!getCreditor().equals(account.getCreditor())) return getCreditor().compareTo(account.getCreditor());
