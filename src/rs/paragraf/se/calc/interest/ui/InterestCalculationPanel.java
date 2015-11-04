@@ -66,11 +66,11 @@ public class InterestCalculationPanel extends JPanel {
 	private JButton loadAccount = new JButton();
 	private JButton saveAccount = new JButton();
 	private JButton saveAsAccount = new JButton();
-	
+
 	// private JButton exit = new JButton();
 
 	/**
-	 * 
+	 *
 	 */
 	public InterestCalculationPanel() {
 		super();
@@ -94,13 +94,13 @@ public class InterestCalculationPanel extends JPanel {
 		fileChooser.setApproveButtonText(MainFrame.properties.getProperty("filechooser.open.label"));
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		fileChooser.setFileFilter(new FileFilter() {
-			
+
 			@Override
 			public String getDescription() {
 				// TODO Auto-generated method stub
 				return "Paragraf kamatni obra\u010Dun (.pko)";
 			}
-			
+
 			@Override
 			public boolean accept(File f) {
 			    if (f.isDirectory()) return true;
@@ -108,7 +108,7 @@ public class InterestCalculationPanel extends JPanel {
 				return false;
 			}
 		});
-		
+
 		overviewAccount.setText(
 				MainFrame.properties.getProperty("overview.main.button"));
 		printAccount.setText(
@@ -121,24 +121,24 @@ public class InterestCalculationPanel extends JPanel {
 				MainFrame.properties.getProperty("save.main.button"));
 		saveAsAccount.setText(
 				MainFrame.properties.getProperty("saveas.main.button"));
-		
+
 		overviewAccount.setPreferredSize(new Dimension(
-							Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+							Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 							Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 		printAccount.setPreferredSize(new Dimension(
-				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 				Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 		newAccount.setPreferredSize(new Dimension(
-				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 				Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 		loadAccount.setPreferredSize(new Dimension(
-				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 				Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 		saveAccount.setPreferredSize(new Dimension(
-				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 				Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 		saveAsAccount.setPreferredSize(new Dimension(
-				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")), 
+				Integer.parseInt(MainFrame.properties.getProperty("x.size.main.button")),
 				Integer.parseInt(MainFrame.properties.getProperty("y.size.main.button"))));
 
 		overviewAccount.addActionListener(new ActionListener() {
@@ -171,7 +171,7 @@ public class InterestCalculationPanel extends JPanel {
 				saveAsAccount();
 			}
 		});
-		
+
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new GridLayout(6, 1));
 		buttons.add(ResourceManager.decorateComponent(overviewAccount,"main.button"));
@@ -205,7 +205,7 @@ public class InterestCalculationPanel extends JPanel {
 			return;
 		accountFile = fileChooser.getSelectedFile();
 		MainFrame.getInstance().getStatusBar().setMessage(MainFrame.properties.getProperty("prefix.status.bar") +accountFile.getName());
-		
+
 		populate(loadAccountBean());
 	}
 
@@ -223,11 +223,11 @@ public class InterestCalculationPanel extends JPanel {
 			in.close();
 
 			return account;
-	
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
-		} 
+		}
 	}
 
 	protected void saveAccount() {
@@ -325,11 +325,11 @@ public class InterestCalculationPanel extends JPanel {
 		private JRadioButton excontAnualInterestType = new JRadioButton();
 		private JRadioButton referentInterestType = new JRadioButton();
 		private JRadioButton ecbInterestType = new JRadioButton();//???
-		
+
 		private JRadioButton conformMethod = new JRadioButton();
 		private JRadioButton proporcionalMethod = new JRadioButton();
 		private JRadioButton mixedMethod = new JRadioButton();
-		
+
 		private JRadioButton calculationTypeInterestFirst = new JRadioButton();
 		private JRadioButton calculationTypeAmmountFirst = new JRadioButton();
 
@@ -353,13 +353,13 @@ public class InterestCalculationPanel extends JPanel {
 		private JButton methodsInfoButton = new JButton();
 
 		/**
-			 * 
+			 *
 			 */
 		public MainPanel() {
 			super();
 			init();
 		}
-		
+
 		public void clear() {
 			setInterestType(AccountBean.LAW_INTEREST_TYPE);
 //			setMethodType(AccountBean.PROPORCIONAL_METHOD_TYPE);
@@ -404,7 +404,7 @@ public class InterestCalculationPanel extends JPanel {
 					MainFrame.properties.getProperty("ecb.interest.type"));
 
 //			disableConformAction();
-//			
+//
 			lawInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(true);
@@ -413,7 +413,7 @@ public class InterestCalculationPanel extends JPanel {
 					mixedMethod.setSelected(true);
 				}
 			});
-			
+
 			lawInterestTypeEur.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
@@ -422,61 +422,61 @@ public class InterestCalculationPanel extends JPanel {
 					proporcionalMethod.setSelected(true);
 				}
 			});
-			priceGrowthInterestType.addActionListener(new ActionListener() {			
+			priceGrowthInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
 					enablePropConfMethod(true);
 					enableCalculationType(true);
 				}
 			});
-			taxInterestType.addActionListener(new ActionListener() {			
+			taxInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableCalculationType(false);
 					enablePropConfMethod(true);
 					enableMixMethod(true);
-					mixedMethod.setSelected(true);				
+					mixedMethod.setSelected(true);
 				}
 			});
-			fixedAnualContractInterestType.addActionListener(new ActionListener() {			
+			fixedAnualContractInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
 					enablePropConfMethod(true);
-					enableCalculationType(true);				
+					enableCalculationType(true);
 				}
 			});
-			fixedMonthleyContractInterestType.addActionListener(new ActionListener() {			
+			fixedMonthleyContractInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
 					enablePropConfMethod(true);
-					enableCalculationType(true);				
+					enableCalculationType(true);
 				}
 			});
-			fixedDailyContractInterestType.addActionListener(new ActionListener() {			
+			fixedDailyContractInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
 					enablePropConfMethod(true);
-					enableCalculationType(true);				
+					enableCalculationType(true);
 				}
 			});
-			freeContractInterestType.addActionListener(new ActionListener() {			
-				public void actionPerformed(ActionEvent e) {
-					enableMixMethod(false);	
-					enablePropConfMethod(true);
-					enableCalculationType(true);			
-				}
-			});
-			excontAnualInterestType.addActionListener(new ActionListener() {			
+			freeContractInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					enableMixMethod(false);
 					enablePropConfMethod(true);
-					enableCalculationType(true);				
+					enableCalculationType(true);
 				}
 			});
-			referentInterestType.addActionListener(new ActionListener() {			
+			excontAnualInterestType.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					enableMixMethod(false);	
+					enableMixMethod(false);
 					enablePropConfMethod(true);
-					enableCalculationType(true);			
+					enableCalculationType(true);
+				}
+			});
+			referentInterestType.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					enableMixMethod(false);
+					enablePropConfMethod(true);
+					enableCalculationType(true);
 				}
 			});
 			ecbInterestType.addActionListener(new ActionListener() {
@@ -487,7 +487,7 @@ public class InterestCalculationPanel extends JPanel {
 					popupMessage_action();
 				}
 			});
-			
+
 			ButtonGroup group = new ButtonGroup();
 			group.add(lawInterestType);
 			group.add(lawInterestTypeEur);
@@ -535,7 +535,7 @@ public class InterestCalculationPanel extends JPanel {
 			fromDate.setLabelText(
 					MainFrame.properties.getProperty("from.input.fields"));
 			fromDate.getTextFiled().setPreferredSize(new Dimension(82, 28));
-			
+
 				toDate = new CalendarPicker(MainFrame.sdf);
 			toDate.setLabelText(
 					MainFrame.properties.getProperty("to.input.fields"));
@@ -581,70 +581,70 @@ public class InterestCalculationPanel extends JPanel {
 				startAmount.setHorizontalAlignment(JTextField.RIGHT);
 				interest.setHorizontalAlignment(JTextField.RIGHT);
 				calculate.setBackground(new Color (235,226,0));
-				
+
 				calculationTypeAmmountFirst.setText(
 						MainFrame.properties.getProperty("calculation.ammount.first.type"));
 				calculationTypeInterestFirst.setText(
 						MainFrame.properties.getProperty("calculation.interest.first.type"));
 				calculationTypeInterestFirst.setSelected(true);
-				
-				
+
+
 				mixedMethod.setText(
 						MainFrame.properties.getProperty("mixed.method.type"));
 				mixedMethod.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent e) {
 						popupMessage_action();
-						
+
 					}
 				});
-				
-				
+
+
 				proporcionalMethod.setText(
 						MainFrame.properties.getProperty("proporcional.method.type"));
 				//proporcionalMethod.setSelected(true);
 
 				proporcionalMethod.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent e) {
 						popupMessage_action();
-						
+
 					}
 				});
-				
+
 				conformMethod.setText(
 						MainFrame.properties.getProperty("conform.method.type"));
-				
+
 				conformMethod.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent e) {
 						popupMessage_action();
-						
+
 					}
 				});
-				
+
 //				conformMethod.setSelected(true);
-				
+
 				ButtonGroup methodGroup = new ButtonGroup();
 				methodGroup.add(proporcionalMethod);
 				methodGroup.add(conformMethod);
 				methodGroup.add(mixedMethod);
-				
+
 				ButtonGroup calculationTypeGroup = new ButtonGroup();
 				calculationTypeGroup.add(calculationTypeAmmountFirst);
 				calculationTypeGroup.add(calculationTypeInterestFirst);
 
-				
+
 				methodsInfoButton.setPreferredSize(new Dimension(390,30));
 				methodsInfoButton.setMinimumSize(new Dimension(390,30));
-				
+
 				methodsInfoButton.setText(
 						MainFrame.properties.getProperty("methods.info.button"));
 				methodsInfoButton.setBackground(new Color( 134,186,235));
 				methodsInfoButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							File file = new File(MainFrame.RUNTIME_PATH + "picalc/conf/method.htm");
+							File file = new File(MainFrame.RUNTIME_PATH + "picalc/conf/docs/method.htm");
 						    //Desktop.getDesktop().open(new File(RUNTIME_PATH + "conf/links.htm"));
 							Desktop.getDesktop().open(new File(file.getCanonicalPath()));
 						} catch (IOException e1) {
@@ -653,25 +653,25 @@ public class InterestCalculationPanel extends JPanel {
 						}
 					}
 				});
-				
+
 				JPanel calculationTypePanel = new JPanel(
 						new MigLayout("insets 0 0 0 0", "[]25mm![]", "[]"));
 				calculationTypePanel.setBorder(BorderFactory.createTitledBorder(MainFrame.properties.getProperty("calculation.type.title")));
 				calculationTypePanel.add(ResourceManager.decorateComponent(calculationTypeAmmountFirst, "interest.type"));
 				calculationTypePanel.add(ResourceManager.decorateComponent(calculationTypeInterestFirst, "interest.type"),"wrap");
-				
+
 				JPanel methodsPanel = new JPanel(
 						new MigLayout("insets 0 0 0 0", "[]8mm![]8mm![]", "[]2mm![]"));
 				methodsPanel.setBorder(BorderFactory.createTitledBorder(MainFrame.properties.getProperty("method.type.title")));
 				methodsPanel.add(ResourceManager.decorateComponent(proporcionalMethod, "interest.type"));
 				methodsPanel.add(ResourceManager.decorateComponent(conformMethod, "interest.type"));
 				methodsPanel.add(ResourceManager.decorateComponent(mixedMethod, "interest.type"),"wrap");
-				
+
 				methodsPanel.add(ResourceManager.decorateComponent(methodsInfoButton, "interest.type"),"span 3, alignx center");
-				
+
 				calculate.setPreferredSize(new Dimension(330,35));
 				calculate.setMinimumSize(new Dimension(330,35));
-				
+
 			JPanel totalPanel = new JPanel(
 						new MigLayout("insets 0 0 0 0", "", ""));
 //			totalPanel.add(ResourceManager.decorateComponent(
@@ -702,44 +702,44 @@ public class InterestCalculationPanel extends JPanel {
 			mixedMethod.setEnabled(enabled);
 			if (mixedMethod.isSelected()) proporcionalMethod.setSelected(true);
 		}
-		
+
 		protected void enablePropConfMethod(boolean enabled) {
 			proporcionalMethod.setEnabled(enabled);
 			conformMethod.setEnabled(enabled);
 			if (!enabled) mixedMethod.setSelected(true);
 		}
-		
+
 		protected void enableCalculationType(boolean enabled) {
-			
+
 			calculationTypeAmmountFirst.setEnabled(enabled);
 			calculationTypeInterestFirst.setEnabled(enabled);
 		}
 
 		protected void popupMessage_action() {
 			if ((!mixedMethod.isSelected()) && (lawInterestType.isSelected() || taxInterestType.isSelected()))
-				JOptionPane.showMessageDialog(this, 
-						MainFrame.properties.getProperty("conform.method.warning.message"), 
-						MainFrame.properties.getProperty("messageType.warning"), 
-						JOptionPane.WARNING_MESSAGE, ResourceManager.getImageIcon("application.icon"));	
+				JOptionPane.showMessageDialog(this,
+						MainFrame.properties.getProperty("conform.method.warning.message"),
+						MainFrame.properties.getProperty("messageType.warning"),
+						JOptionPane.WARNING_MESSAGE, ResourceManager.getImageIcon("application.icon"));
 			if ((mixedMethod.isSelected() || conformMethod.isSelected()) && (lawInterestTypeEur.isSelected() ))
-				JOptionPane.showMessageDialog(this, 
-						MainFrame.properties.getProperty("proporcional.method.warning.message"), 
-						MainFrame.properties.getProperty("messageType.warning"), 
+				JOptionPane.showMessageDialog(this,
+						MainFrame.properties.getProperty("proporcional.method.warning.message"),
+						MainFrame.properties.getProperty("messageType.warning"),
 						JOptionPane.WARNING_MESSAGE, ResourceManager.getImageIcon("application.icon"));
 			if (ecbInterestType.isSelected())
-				JOptionPane.showMessageDialog(this, 
-						MainFrame.properties.getProperty("ecb.method.info.message"), 
-						MainFrame.properties.getProperty("messageType.information"), 
+				JOptionPane.showMessageDialog(this,
+						MainFrame.properties.getProperty("ecb.method.info.message"),
+						MainFrame.properties.getProperty("messageType.information"),
 						JOptionPane.WARNING_MESSAGE, ResourceManager.getImageIcon("application.icon"));
 			}
 
 //		protected void disableConformAction() {
 //			proporcionalMethod.setSelected(true);
-//			conformMethod.setEnabled(false);	
+//			conformMethod.setEnabled(false);
 //		}
-//		
+//
 //		protected void enableConformAction() {
-//			conformMethod.setEnabled(true);	
+//			conformMethod.setEnabled(true);
 //		}
 
 		private boolean validateForm() {
@@ -747,7 +747,7 @@ public class InterestCalculationPanel extends JPanel {
 
 			if (fromDate.getText().trim().isEmpty()) {
 				MainFrame.showMessage(
-						MainFrame.properties.getProperty("from.date.empty"), 
+						MainFrame.properties.getProperty("from.date.empty"),
 						JOptionPane.ERROR_MESSAGE, this);
 				return false;
 			}
@@ -796,11 +796,11 @@ public class InterestCalculationPanel extends JPanel {
 						if (startAmount.getValue()!=null) {
 							cal = Double.valueOf(String.valueOf(startAmount.getValue()));
 						}
-						else if (MainFrame.decimalFormater.parse(startAmount.getText())!=null) 
+						else if (MainFrame.decimalFormater.parse(startAmount.getText())!=null)
 							cal = MainFrame.decimalFormater.parse(startAmount.getText()).doubleValue();
 						}
 				} catch (Exception e) { e.printStackTrace(); }
-			
+
 			if (startAmount.getText().trim().isEmpty() || cal == 0) {
 				MainFrame.showMessage(
 						MainFrame.properties.getProperty("start.amount.empty"),
@@ -828,7 +828,7 @@ public class InterestCalculationPanel extends JPanel {
 			// validate form
 			if (validateForm()) {
 				accountPanel.numberCellRenderer.setPaintBackground(false);
-				AccountBean account = 
+				AccountBean account =
 					MainFrame.getInstance().interestCalculationPanel.readForm();
 				System.out.println("Account ::" + account);
 				account.calculate();
@@ -851,7 +851,7 @@ public class InterestCalculationPanel extends JPanel {
 				case AccountBean.MIXED_METHOD_TYPE: mixedMethod.setSelected(true); break;
 				}
 			}
-		
+
 		public int getMethodType() {
 			if (proporcionalMethod.isSelected())
 				return AccountBean.PROPORCIONAL_METHOD_TYPE;
@@ -860,13 +860,13 @@ public class InterestCalculationPanel extends JPanel {
 
 			return AccountBean.MIXED_METHOD_TYPE;
 		}
-		
+
 		public AccountBean.CALCULATION_TYPE getCalculationType() {
 			if (calculationTypeAmmountFirst.isSelected())
 				return AccountBean.CALCULATION_TYPE.AMMOUNT_FIRST_CALCULATION_TYPE;
 			return AccountBean.CALCULATION_TYPE.INTEREST_FIRST_CALCULATION_TYPE;
 		}
-		
+
 		public void setCalculationType(AccountBean.CALCULATION_TYPE claculationType) {
 
 			switch (claculationType) {
@@ -878,7 +878,7 @@ public class InterestCalculationPanel extends JPanel {
 				return;
 			}
 		}
-		
+
 		public void setInterestType(int type) {
 			switch (type) {
 			case AccountBean.LAW_INTEREST_TYPE:
@@ -915,10 +915,10 @@ public class InterestCalculationPanel extends JPanel {
 				referentInterestType.setSelected(true);
 				break;
 			default:
-				JOptionPane.showMessageDialog(this, 
-						MainFrame.properties.getProperty("nosuch.interesttype.warning.message"), 
-						MainFrame.properties.getProperty("messageType.warning"), 
-						JOptionPane.WARNING_MESSAGE, null);	
+				JOptionPane.showMessageDialog(this,
+						MainFrame.properties.getProperty("nosuch.interesttype.warning.message"),
+						MainFrame.properties.getProperty("messageType.warning"),
+						JOptionPane.WARNING_MESSAGE, null);
 				break;
 			}
 		}
@@ -962,7 +962,7 @@ public class InterestCalculationPanel extends JPanel {
 			startAmount.setText(
 					MainFrame.decimalFormater.format(account.getStartAmount()));
 			document.setText(account.getDocument());
-			if (getMethodType()!=AccountBean.MIXED_METHOD_TYPE && 
+			if (getMethodType()!=AccountBean.MIXED_METHOD_TYPE &&
 					(getInterestType()==AccountBean.TAX_INTEREST_TYPE ||
 							getInterestType()==AccountBean.LAW_INTEREST_TYPE))
 				popupMessage_action();
@@ -1032,7 +1032,7 @@ public class InterestCalculationPanel extends JPanel {
 		private UserPanel debtor;
 
 		/**
-		 * 
+		 *
 		 */
 		public UsersPanel() {
 			super();
@@ -1114,7 +1114,7 @@ public class InterestCalculationPanel extends JPanel {
 		}
 
 		/**
-		 * 
+		 *
 		 */
 		public AccountPanel() {
 			super();
@@ -1304,6 +1304,6 @@ public class InterestCalculationPanel extends JPanel {
 		public void setTable(JTable table) {
 			this.table = table;
 		}
-		
+
 	}
 }
