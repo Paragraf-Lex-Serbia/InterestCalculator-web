@@ -356,8 +356,6 @@ public class AccountBean implements Serializable, Comparable<AccountBean>{
 		result.setFrom(cal.getTime());
 		result.setTo(getTo()); // default setting to final end period
 		RateBean rate = RateManager.getInstance().getRates(cal.getTime(), this.getInterestType());
-		System.out.println("AccountBean._calculateEndDate() " + (rate==null));
-		System.out.println("Rate ::" + rate.getFrom() +"-" + rate.getTo());
 		Double interest = null;
 		if (rate!=null) interest = rate.getRate(this.getInterestType());
 		else if (this.getInterestType()==FIXED_ANUAL_CONTRACT_INTEREST_TYPE) interest = RateManager.getInstance().getFixedAnualContractInterest();
