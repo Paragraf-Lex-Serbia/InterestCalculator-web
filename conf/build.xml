@@ -90,7 +90,8 @@
 
 		<copy todir="${build.dir}\lib" preservelastmodified="true">
 			<fileset dir="${lib.dir}">
-				<include name="itextpdf-5.3.5.jar"/>
+				<!--include name="itextpdf-5.3.5.jar"/-->
+				<include name="iText.jar"/>
 				<include name="miglayout-4.0.jar"/>
 	   		</fileset>
 		</copy>
