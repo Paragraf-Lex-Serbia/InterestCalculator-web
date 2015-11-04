@@ -155,7 +155,7 @@ public class MainFrame extends JFrame {
 		// rateFormater.setGroupingUsed(true);
 
 		this.setTitle(MessageFormat.format(
-				properties.getProperty("mainframe.title.label"),
+				properties.getProperty("jws.mainframe.title.label"),
 				properties.getProperty("application.version")));
 		this.setIconImage(((ImageIcon) ResourceManager
 				.getImageIcon("application.icon")).getImage());
@@ -217,7 +217,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					File file = new File(MainFrame.RUNTIME_PATH
-							+ "picalc/conf/interesthelp.pdf");
+							+ "picalc/conf/docs/interesthelp.pdf");
 					// Desktop.getDesktop().open(new File(MainFrame.RUNTIME_PATH
 					// + "conf/interesthelp.pdf"));
 					Desktop.getDesktop()
@@ -236,7 +236,7 @@ public class MainFrame extends JFrame {
 		links.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(RUNTIME_PATH + "picalc/conf/links.htm");
+					File file = new File(RUNTIME_PATH + "picalc/conf/docs/links.htm");
 					// Desktop.getDesktop().open(new File(RUNTIME_PATH +
 					// "conf/links.htm"));
 					Desktop.getDesktop()
@@ -255,7 +255,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					File file = new File(RUNTIME_PATH
-							+ "picalc/conf/document.htm");
+							+ "picalc/conf/docs/document.htm");
 					// Desktop.getDesktop().open(new File( RUNTIME_PATH +
 					// "conf/document.htm"));
 					Desktop.getDesktop()

@@ -265,8 +265,9 @@ public class RateManager {
 							}
 							previousRate = rate.clone();
 						}
-					// Workaround for last interval
-					if (result==null && previousRate!=null) return previousRate;
+//					// Workaround for last interval
+					if (result ==null && previousRate!=null && !date.before(previousRate.getFrom()) && date.before(previousRate.getTo()) ) return previousRate;
+						
 					
 					if (result!=null && (!date.before(result.getFrom() ) && date.before(result.getTo()))) return result;
 					return null;
