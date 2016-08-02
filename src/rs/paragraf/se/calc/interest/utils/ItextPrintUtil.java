@@ -65,7 +65,7 @@ public class ItextPrintUtil {
     			//Desktop.getDesktop().print(file);
     			Desktop.getDesktop().print(new File(file.getCanonicalPath()));
 		} catch (Exception e) {
-			MainFrame.showMessage(MainFrame.properties.getProperty("print.message"), JOptionPane.ERROR_MESSAGE);
+			printPreview();
 		}
     }
 
@@ -79,8 +79,8 @@ public class ItextPrintUtil {
 		{
 			try {
 				counter++;
-				resultFile = new File(MainFrame.RUNTIME_PATH
-						+ "picalc/document" + System.currentTimeMillis() + ".pdf");
+				resultFile = new File(MainFrame.USER_PATH
+						+ "/picalc/document" + System.currentTimeMillis() + ".pdf");
 				fos = new FileOutputStream(resultFile);
 				again=false;
 			} catch (Exception e) {System.out.println(e.getMessage()); again=true;	}

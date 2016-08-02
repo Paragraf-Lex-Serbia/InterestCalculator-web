@@ -123,10 +123,10 @@ public class RateManager {
 			}
 
 			try {
-			File file = new File(MainFrame.RUNTIME_PATH + "picalc/conf/contractInterest.dat");
+			File file = new File(MainFrame.USER_PATH + "/picalc/conf/contractInterest.dat");
 				if (file.exists())
 				{
-				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(MainFrame.RUNTIME_PATH + "picalc/conf/contractInterest.dat"), "utf8"));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(MainFrame.USER_PATH + "/picalc/conf/contractInterest.dat"), "utf8"));
 	//				InputStreamReader reader = new InputStreamReader(new FileInputStream(MainFrame.RUNTIME_PATH + "conf/fixedInterest.dat"),"utf8");
 				    String line = reader.readLine() ;
 				    String[] fixedInterest = line.split(";");
@@ -172,7 +172,7 @@ public class RateManager {
 		public void save()
 		{
 			try {
-			File file = new File(MainFrame.RUNTIME_PATH + "picalc/conf/contractInterest.dat");
+			File file = new File(MainFrame.USER_PATH + "/picalc/conf/contractInterest.dat");
 				if (!file.exists()) file.createNewFile();
 				BufferedWriter writer = new BufferedWriter( new FileWriter(file));
 				Iterator<RateBean> it = contractRates.iterator();

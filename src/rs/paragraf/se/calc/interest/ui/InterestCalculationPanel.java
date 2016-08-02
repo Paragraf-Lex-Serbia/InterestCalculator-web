@@ -55,7 +55,7 @@ import rs.paragraf.se.calc.interest.utils.ResourceManager;
 public class InterestCalculationPanel extends JPanel {
 	private File accountFile = null;
 	private MyFileChooser fileChooser = new MyFileChooser(new File(
-			MainFrame.RUNTIME_PATH + "picalc/obracuni/").getAbsolutePath());
+			MainFrame.USER_PATH + "/picalc/obracuni/").getAbsolutePath());
 	private MainPanel mainPanel = new MainPanel();
 	private UsersPanel usersPanel = new UsersPanel();
 	private AccountPanel accountPanel = new AccountPanel();
@@ -644,7 +644,7 @@ public class InterestCalculationPanel extends JPanel {
 				methodsInfoButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							File file = new File(MainFrame.RUNTIME_PATH + "picalc/conf/docs/method.htm");
+							File file = new File(MainFrame.USER_PATH + "/picalc/conf/docs/method.htm");
 						    //Desktop.getDesktop().open(new File(RUNTIME_PATH + "conf/links.htm"));
 							Desktop.getDesktop().open(new File(file.getCanonicalPath()));
 						} catch (IOException e1) {
@@ -843,7 +843,6 @@ public class InterestCalculationPanel extends JPanel {
 		}
 
 		public void setMethodType(int type) {
-			System.out.println("METOD ::" + type);
 			switch (type) {
 				default:
 				case AccountBean.CONFORM_METHOD_TYPE: conformMethod.setSelected(true); break;

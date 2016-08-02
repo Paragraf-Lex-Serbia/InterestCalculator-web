@@ -46,6 +46,7 @@ import rs.paragraf.se.calc.interest.utils.Unpacker.UnpackException;
 public class MainFrame extends JFrame {
 
 	public static String RUNTIME_PATH = "";
+	public static final String USER_PATH = System.getProperty("user.home");
 	public static final SimpleDateFormat sdf = new SimpleDateFormat(
 			"dd.MM.yyyy.");
 	public static final SimpleDateFormat sdfWithPoints = new SimpleDateFormat(
@@ -216,8 +217,8 @@ public class MainFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(MainFrame.RUNTIME_PATH
-							+ "picalc/conf/docs/interesthelp.pdf");
+					File file = new File(MainFrame.USER_PATH
+							+ "/picalc/conf/docs/interesthelp.pdf");
 					// Desktop.getDesktop().open(new File(MainFrame.RUNTIME_PATH
 					// + "conf/interesthelp.pdf"));
 					Desktop.getDesktop()
@@ -236,7 +237,7 @@ public class MainFrame extends JFrame {
 		links.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(RUNTIME_PATH + "picalc/conf/docs/links.htm");
+					File file = new File(USER_PATH + "/picalc/conf/docs/links.htm");
 					// Desktop.getDesktop().open(new File(RUNTIME_PATH +
 					// "conf/links.htm"));
 					Desktop.getDesktop()
@@ -254,8 +255,8 @@ public class MainFrame extends JFrame {
 		dbDocuments.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(RUNTIME_PATH
-							+ "picalc/conf/docs/document.htm");
+					File file = new File(USER_PATH
+							+ "/picalc/conf/docs/document.htm");
 					// Desktop.getDesktop().open(new File( RUNTIME_PATH +
 					// "conf/document.htm"));
 					Desktop.getDesktop()
@@ -399,7 +400,7 @@ public class MainFrame extends JFrame {
 
 		this.dispose();
 		instance = null;
-		System.out.println("Runtime ::" + RUNTIME_PATH);
+		
 		if (RUNTIME_PATH.isEmpty())
 			System.exit(0);
 
@@ -432,27 +433,27 @@ public class MainFrame extends JFrame {
 			return;
 		}
 
-		if (!new File(RUNTIME_PATH + "picalc/").exists()) {
-			new File(RUNTIME_PATH + "picalc/").mkdirs();
+		if (!new File(USER_PATH + "/picalc/").exists()) {
+			new File(USER_PATH + "/picalc/").mkdirs();
 		}
-		if (!new File(RUNTIME_PATH + "picalc/obracuni/").exists()) {
-			new File(RUNTIME_PATH + "picalc/obracuni/").mkdirs();
+		if (!new File(USER_PATH + "/picalc/obracuni/").exists()) {
+			new File(USER_PATH + "/picalc/obracuni/").mkdirs();
 		}
-		if (!new File(RUNTIME_PATH + "picalc/conf/").exists()) {
-			new File(RUNTIME_PATH + "picalc/conf/").mkdirs();
+		if (!new File(USER_PATH + "/picalc/conf/").exists()) {
+			new File(USER_PATH + "/picalc/conf/").mkdirs();
 		}
-		if (!new File(RUNTIME_PATH + "picalc/conf/docs/").exists()) {
-			new File(RUNTIME_PATH + "picalc/conf/docs/").mkdirs();
+		if (!new File(USER_PATH + "/picalc/conf/docs/").exists()) {
+			new File(USER_PATH + "/picalc/conf/docs/").mkdirs();
 		}
 		try {
 			Unpacker.unpackFromClassPath("docs/document.htm",
-					"picalc/conf/docs/document.htm");
+					USER_PATH + "/picalc/conf/docs/document.htm");
 			Unpacker.unpackFromClassPath("docs/method.htm",
-					"picalc/conf/docs/method.htm");
+					USER_PATH + "/picalc/conf/docs/method.htm");
 			Unpacker.unpackFromClassPath("docs/links.htm",
-					"picalc/conf/docs/links.htm");
+					USER_PATH + "/picalc/conf/docs/links.htm");
 			Unpacker.unpackFromClassPath("docs/interesthelp.pdf",
-					"picalc/conf/docs/interesthelp.pdf");
+					USER_PATH + "/picalc/conf/docs/interesthelp.pdf");
 		} catch (Unpacker.UnpackException e2) {
 			e2.printStackTrace();
 		}

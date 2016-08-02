@@ -278,8 +278,8 @@ public class ConfigPanel extends JPanel {
 
 		ObjectOutput output = null;
 		try {
-			OutputStream file = new FileOutputStream(MainFrame.RUNTIME_PATH
-					+ "picalc/conf/userData.cfg");
+			OutputStream file = new FileOutputStream(MainFrame.USER_PATH
+					+ "/picalc/conf/userData.cfg");
 			OutputStream buffer = new BufferedOutputStream(file);
 			output = new ObjectOutputStream(buffer);
 
@@ -311,15 +311,15 @@ public class ConfigPanel extends JPanel {
 	@SuppressWarnings("finally")
 	public ConfigBean deserializeDataFromFile() {
 		ConfigBean user = new ConfigBean();
-		if (!new File(MainFrame.RUNTIME_PATH + "picalc/conf/userData.cfg")
+		if (!new File(MainFrame.USER_PATH + "/picalc/conf/userData.cfg")
 				.exists())
 			return user;
 		else {
 			// deserialize the userData.ser file
 			try {
 				// use buffering
-				InputStream file = new FileInputStream(MainFrame.RUNTIME_PATH
-						+ "picalc/conf/userData.cfg");
+				InputStream file = new FileInputStream(MainFrame.USER_PATH
+						+ "/picalc/conf/userData.cfg");
 				InputStream buffer = new BufferedInputStream(file);
 				ObjectInput input = new ObjectInputStream(buffer);
 				try {
